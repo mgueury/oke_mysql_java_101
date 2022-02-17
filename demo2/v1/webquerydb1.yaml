@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webquerydb-deployment
+spec:
+  selector:
+    matchLabels:
+      app: webquerydb
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: webquerydb
+    spec:
+      containers:
+      - name: webquerydb
+        image: fra.ocir.io/fr03kzmuvhtf/marc/webquerydb:v1
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: ocirsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webquerydb-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: webquerydb
+
+
+
