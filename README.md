@@ -19,12 +19,13 @@ Setup a VCN peering.
 The database used for the demo is running on 10.1.1.237 with the password root/Welcome1!
 You will need to change this to your needs.
 
-  mysqlsh root@10.1.1.237
-  Welcome1!
-  \sql
-  show databases;
-  create database db1;
-  use db1;
+```
+mysqlsh root@10.1.1.237
+Welcome1!
+\sql
+show databases;
+create database db1;
+use db1;
 
 CREATE TABLE t1 (
  id INT AUTO_INCREMENT PRIMARY KEY,
@@ -34,37 +35,42 @@ insert into t1( name ) values ( 'DOLPHIN');
 insert into t1( name ) values ( 'TIGER');
 insert into t1( name ) values ( 'PINGUIN');
 insert into t1( name ) values ( 'LION');
-</code>
+```
 
 ## Demo 1 - Java 
 
 Check file QueryDB.java, Dockerfile, bin/build.sh
 
-  cd oke_mysql_java_101/demo1
-  bin/build.sh
-  docker run querydb
-  docker run -it --entrypoint /bin/bash querydb
-  ls
-  exit
+```
+cd oke_mysql_java_101/demo1
+bin/build.sh
+docker run querydb
+docker run -it --entrypoint /bin/bash querydb
+ls
+exit
+```
 
 ## Demo 2 V1 - SpringBoot - hardcoded values
 
 Check file src/main/java/com/mysql/web/basic/BasicApplication.java, src/main/java/com/mysql/web/basic/BasicController.java
 
-  cd oke_mysql_java_101/demo2/v1
-  bin/build.sh
-  bin/push.sh
-  kubectl apply -f webquerydb1.yaml 
-  kubectl get service
-  curl http://xx.xx.xx.xx/query
+```
+cd oke_mysql_java_101/demo2/v1
+bin/build.sh
+bin/push.sh
+kubectl apply -f webquerydb1.yaml 
+kubectl get service
+curl http://xx.xx.xx.xx/query
+```
 
 ## Demo 2 V2 - SpringBoot - configMap and secrets
 
-  cd oke_mysql_java_101/demo2/v2
-  bin/config.sh
-  bin/build.sh
-  bin/push.sh
-  kubectl apply -f webquerydb2.yaml
-  kubectl get pods | grep web
-  curl http://129.159.203.100/query
-
+```
+cd oke_mysql_java_101/demo2/v2
+bin/config.sh
+bin/build.sh
+bin/push.sh
+kubectl apply -f webquerydb2.yaml
+kubectl get pods | grep web
+curl http://xx.xx.xx.xx/query
+```
