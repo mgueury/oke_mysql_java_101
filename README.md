@@ -12,11 +12,27 @@ Please follow this step-by-step:
 ### MySQL
 If you have already a MySQL database running on OCI, and accessible from OKE, skip this step.
 
-Note: if your MySQL database run in a separate VCN, you will need to setup a VCN peering.
+There are 2 main ways to create a MySQL database.
+
+#### A. Mysql Database System. 
+In OCI console, 
+- Go to Database / MySQL, 
+- Click create and follow the wizard. 
+- To make it easy, reuse the network setup of OKE, VCN and the NodeSubnet, such that no special networking is needed. 
+- If you decide to create a separate VCN, VCN peering will be needed. 
+- Doc here: https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-db-system1.html#GUID-AE89C67D-E1B1-4F11-B934-8B0564B4FC69
+
+#### B. Install MySQL in Kubernetes 
+
+Please use these instructions,
+- https://kubernetes.io/docs/tasks/run-application/run-single-instance-stateful-application/
+
+It will create a persistent volume to keep your data if the container is lost.
 
 ## MySQL - Creation of the table
 
 The database used for the demo is running on 10.1.1.237 with the password root/Welcome1!
+
 You will need to change this to your needs.
 
 First, edit the file bin/env.sh to match your MySQL connection
