@@ -31,6 +31,12 @@ It will create a persistent volume to keep your data if the container is lost.
 
 ## MySQL - Creation of the table
 
+Open the OCI cloud console and clone this repository:
+
+```
+git clone https://github.com/mgueury/oke_mysql_java_101.git
+```
+
 The database used for the demo is running on 10.1.1.237 with the password root/Welcome1!
 
 Edit the file bin/env.sh to match your MySQL connection.
