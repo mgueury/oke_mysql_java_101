@@ -22,7 +22,9 @@ You will need to change this to your needs.
 First, edit the file bin/env.sh to match your MySQL connection
 You can find the script to create the DB table in the directory setup. 
 Then run 
-> setup/mysql_create_db_table.sh
+```
+setup/mysql_create_db_table.sh
+```
 
 It will do this:
 ```
@@ -42,8 +44,9 @@ insert into t1( name ) values ( 'LION');
 
 ## Demo 1 - Java 
 
-In this demo, the DB details are hardcoded in the Dockerfile
-Edit Dockerfile and change it with you DB details
+In this demo, the DB details are hardcoded in the Dockerfile.
+
+Edit Dockerfile and replace with your DB details
 
 ```
 cd oke_mysql_java_101/demo1
