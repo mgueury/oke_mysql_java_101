@@ -33,11 +33,17 @@ It will create a persistent volume to keep your data if the container is lost.
 
 The database used for the demo is running on 10.1.1.237 with the password root/Welcome1!
 
-You will need to change this to your needs.
+Edit the file bin/env.sh to match your MySQL connection.
+```
+vi bin/env.sh
+...
+DB_IP=10.1.1.237
+DB_USER=root
+DB_PASSWORD=Welcome1!
+...
+```
 
-First, edit the file bin/env.sh to match your MySQL connection
 You can find the script to create the DB table in the directory setup. 
-Then run 
 ```
 setup/mysql_create_db_table.sh
 ```
