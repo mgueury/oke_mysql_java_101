@@ -78,11 +78,20 @@ CMD ["java", "-classpath",  "lib/*:.", "QueryDB", "jdbc:mysql://10.1.1.237/db1?u
 ...
 ```
 
-To build the docker container, please do this.
+To build and run the docker container, do this.
 
 ```
 bin/build.sh
 docker run querydb
+```
+
+You will see:
+
+```
+1 DOLPHIN
+2 TIGER
+3 PINGUIN
+4 LION
 ```
 
 To check what the container contains:
@@ -95,8 +104,7 @@ exit
 
 ## Demo 2 V1 - SpringBoot - hardcoded values
 
-In this demo too, the DB details are hardcoded.
-To modify them
+In this demo too, the DB details are hardcoded. To modify them:
 
 ```
 cd oke_mysql_java_101/demo2/v1
@@ -122,9 +130,15 @@ webquerydb-service   LoadBalancer   10.96.105.230   123.123.123.123   80:32114/T
 curl http://123.123.123.123/query
 ```
 
+You will see
+```
+1:DOLPHIN 2:TIGER 3:PINGUIN 4:LION
+```
+
+
 ## Demo 2 V2 - SpringBoot - configMap and secrets
 
-In this demo too, the DB details are stored in Kubernetes configMap or secrets.
+In this demo, the DB details are stored in Kubernetes configMap or secrets.
 To modify them
 
 ```
@@ -154,3 +168,10 @@ kubectl apply -f webquerydb2.yaml
 # Same EXTERNAL IP than above
 curl http://123.123.123.123/query
 ```
+
+You will see
+```
+1:DOLPHIN 2:TIGER 3:PINGUIN 4:LION
+```
+
+If you reach this point, CONGRATULATION !! You have a MySQL database, a Springboot application in Java running in Kubernetes using configMap and secrets.
