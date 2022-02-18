@@ -14,7 +14,7 @@ If you have already a MySQL database running on OCI, and accessible from OKE, sk
 
 There are 2 main ways to create a MySQL database.
 
-#### A. Mysql Database System. 
+#### A. MySQL Database System. 
 In OCI console, 
 - Go to Database / MySQL, 
 - Click create and follow the wizard. 
