@@ -1,12 +1,13 @@
-# Demo OKE MySQL Java
+# Sample - Oracle Cloud - Kubernetes(OKE), MySQL and Java
 
 ## Prerequisite 
 
-If you have or not Oracle Cloud account (OCI), or Kubernetes install on it. Please follow this step-by-step:
+If you don't already have 
+- an Oracle Cloud account (OCI), 
+- or OKE (Kubernetes) installed on it. 
 
-https://oracle.github.io/learning-library/oci-library/oci-hol/OKE/workshops/freetier/index.html?lab=oke
-
-The result is that you will have a Kubernetes running and some 
+Please follow this step-by-step:
+- https://oracle.github.io/learning-library/oci-library/oci-hol/OKE/workshops/freetier/index.html?lab=oke
 
 ### MySQL
 If you have already a MySQL database running on OCI, and accessible from OKE, skip this step.
