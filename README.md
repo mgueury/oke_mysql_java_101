@@ -28,12 +28,12 @@ Please use these instructions,
 - https://kubernetes.io/docs/tasks/run-application/run-single-instance-stateful-application/
 
 It will create a persistent volume to keep your data if the container is lost.
-There is a sample YAML to create a mysql-server instance in OKE in setup/oke_mysql.yaml. Notice that it works also ARM processors. 
+There is a sample YAML to create a mysql-server instance inside OKE in setup/oke_mysql.yaml. Notice that it works also ARM processors. 
 
 ```
 kubectl create -f oke_mysql.yaml 
 kubectl exec -it deployment/mysql -- sh
-mysqlsh root@127.0.0.1 --password=Welcome1!
+mysql --user=root --password=$MYSQL_ROOT_PASSWORD
 ```
 
 ## MySQL - Creation of the table
@@ -75,6 +75,7 @@ insert into t1( name ) values ( 'DOLPHIN');
 insert into t1( name ) values ( 'TIGER');
 insert into t1( name ) values ( 'PINGUIN');
 insert into t1( name ) values ( 'LION');
+select * from t1;
 ```
 
 ## Demo 1 - Java 
@@ -90,6 +91,13 @@ vi Dockerfile
 CMD ["java", "-classpath",  "lib/*:.", "QueryDB", "jdbc:mysql://10.1.1.237/db1?user=root&password=Welcome1!"] 
 ...
 ```
+
+If your MySQL run on Kubernetes, you will need to forward the port to the console like this:
+```
+kubectl port-forward deployment/mysql 3306 &
+```
+And use jdbc:mysql://localhost/db1?user=root&password=Welcome1!
+
 
 To build and run the docker container, do this.
 
