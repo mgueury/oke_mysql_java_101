@@ -1,0 +1,3 @@
+DB_IP=10.1.1.237
+DB_USER=root
+DB_PASSWORD=Welcome1!
