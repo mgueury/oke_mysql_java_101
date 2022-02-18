@@ -2,11 +2,11 @@
 
 ## Prerequisite 
 
-### OCI tenant 
-If you have already an Oracle Cloud account, skip this step.
+If you have or not Oracle Cloud account (OCI), or Kubernetes install on it. Please follow this step-by-step:
 
-### Kubernetes
-If you have already a Kubernetes running on OCI, skip this step.
+https://oracle.github.io/learning-library/oci-library/oci-hol/OKE/workshops/freetier/index.html?lab=oke
+
+The result is that you will have a Kubernetes running and some 
 
 ### MySQL
 If you have already a MySQL database running on OCI, and accessible from OKE, skip this step.
