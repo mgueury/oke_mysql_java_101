@@ -1,4 +1,12 @@
 apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-pass
+type: Opaque
+data:
+  password: V2VsY29tZTEh 
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mysql-pv-volume
@@ -52,12 +60,14 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: mysql
+      - image: mysql/mysql-server
         name: mysql
         env:
-          # Use secret in real usage
-        - name: Welcome1!
-          value: password
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
         ports:
         - containerPort: 3306
           name: mysql
