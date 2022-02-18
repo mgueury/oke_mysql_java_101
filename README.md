@@ -32,9 +32,23 @@ There is a sample YAML to create a mysql-server instance inside OKE in setup/oke
 
 ```
 kubectl create -f oke_mysql.yaml 
+```
+
+To allow the connection to the MySQL database from you console:
+
+```
 kubectl exec -it deployment/mysql -- sh
 mysql --user=root --password=$MYSQL_ROOT_PASSWORD
+CREATE USER 'root'@'%' IDENTIFIED BY 'Welcome1!';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 ```
+
+Then forward the MySQL port to your console 
+
+```
+kubectl port-forward deployment/mysql 3306 &
+```
+
 
 ## MySQL - Creation of the table
 
@@ -92,12 +106,13 @@ CMD ["java", "-classpath",  "lib/*:.", "QueryDB", "jdbc:mysql://10.1.1.237/db1?u
 ...
 ```
 
-If your MySQL run on Kubernetes, you will need to forward the port to the console like this:
+If your MySQL run on Kubernetes, you will need to forward the port to the console see above and use the forwarded port.
+This means
 ```
-kubectl port-forward deployment/mysql 3306 &
+...
+CMD ["java", "-classpath",  "lib/*:.", "QueryDB", "jdbc:mysql://localhost/db1?user=root&password=Welcome1!"] 
+...
 ```
-And use jdbc:mysql://localhost/db1?user=root&password=Welcome1!
-
 
 To build and run the docker container, do this.
 
