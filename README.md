@@ -28,6 +28,13 @@ Please use these instructions,
 - https://kubernetes.io/docs/tasks/run-application/run-single-instance-stateful-application/
 
 It will create a persistent volume to keep your data if the container is lost.
+There is a sample YAML to create a mysql-server instance in OKE in setup/oke_mysql.yaml. Notice that it works also ARM processors. 
+
+```
+kubeclt create -f oke_mysql.yaml 
+kubectl exec -it deployment/mysql -- sh
+mysqlsh root@127.0.0.1 --password=Welcome1!
+```
 
 ## MySQL - Creation of the table
 
