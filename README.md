@@ -217,3 +217,21 @@ You will see
 ```
 
 If you reach this point, CONGRATULATION !! You have a MySQL database, a Springboot application in Java running in Kubernetes using configMap and secrets.
+
+## Known issue
+
+#### demo 2 v1 or v2 compilation fails
+
+```
+Caused by: java.lang.IllegalArgumentException: invalid target release: 11
+    at com.sun.tools.javac.main.OptionHelper$GrumpyHelper.error (OptionHelper.java:103)
+    at com.sun.tools.javac.main.Option$12.process (Option.java:216)
+    at com.sun.tools.javac.api.JavacTool.processOptions (JavacTool.java:217)
+    at com.sun.tools.javac.api.JavacTool.getTask (JavacTool.java:156)
+    at com.sun.tools.javac.api.JavacTool.getTask (JavacTool.java:107)
+```
+
+- Cause: you are using JDK8. 
+- WA: edit pom.xml 
+  - OLD: <java.version>11</java.version>  
+  - NEW: <java.version>8</java.version>
