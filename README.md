@@ -45,7 +45,7 @@ To allow the connection to the MySQL database from your console you need
 to allow the user root to do so:
 
 ```
-kubectl exec -it deployment/mysql -- sh
+kubectl exec -it deployment/mysql -- bash
 mysql -uroot -pWelcome1!
 CREATE USER 'root'@'%' IDENTIFIED BY 'Welcome1!';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
