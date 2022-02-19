@@ -3,10 +3,10 @@
 . ../bin/env.sh
 
 # Create the table in the mysql DB
-cat << EOF | mysql -h$DB_IP -u$DB_USER -p$DB_PASSWORD 
+cat << EOF | mysql -h$MYSQL_IP -u$MYSQL_USER -p$MYSQL_PASSWORD 
 show databases;
-create database db4;
-use db4;
+create database db1;
+use db1;
 
 CREATE TABLE t1 (
  id INT AUTO_INCREMENT PRIMARY KEY,
