@@ -69,9 +69,9 @@ Edit the file bin/env.sh to match your MySQL connection.
 ```
 vi bin/env.sh
 ...
-DB_IP=10.1.1.237
-DB_USER=root
-DB_PASSWORD=Welcome1!
+MYSQL_IP=10.1.1.237
+MYSQL_USER=root
+MYSQL_PASSWORD=Welcome1!
 ...
 ```
 
