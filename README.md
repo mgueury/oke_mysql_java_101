@@ -49,6 +49,8 @@ kubectl exec -it deployment/mysql -- bash
 mysql -uroot -pWelcome1!
 CREATE USER 'root'@'%' IDENTIFIED BY 'Welcome1!';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+exit
+exit
 ```
 
 Then forward the MySQL port to your console and try to connect
