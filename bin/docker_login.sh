@@ -1,4 +1,5 @@
-. ./env.sh
+DIR=$(dirname "$0")
+. $DIR/env.sh
 # Login to docker
 docker login $OCI_REGION -u $OCI_NAMESPACE/$OCI_USERNAME -p "$OCI_TOKEN"
 # OCI Repository prefix
