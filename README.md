@@ -9,6 +9,14 @@ If you don't already have
 Please follow this step-by-step:
 - https://oracle.github.io/learning-library/oci-library/oci-hol/OKE/workshops/freetier/index.html?lab=oke
 
+### Code
+
+Open the OCI cloud console and clone this repository:
+
+```
+git clone https://github.com/mgueury/oke_mysql_java_101.git
+```
+
 ### MySQL
 If you have already a MySQL database running on OCI, and accessible from OKE, skip this step.
 
@@ -24,17 +32,17 @@ In OCI console,
 
 #### B. Install MySQL in Kubernetes 
 
-Please use these instructions,
+The documentation is here:
 - https://kubernetes.io/docs/tasks/run-application/run-single-instance-stateful-application/
 
-It will create a persistent volume to keep your data if the container is lost.
-There is a sample YAML to create a mysql-server instance inside OKE in setup/oke_mysql.yaml. Notice that it works also ARM processors. 
+Here is an example to create a MySQL server with username/password = root/Welcome1!
 
 ```
-kubectl create -f oke_mysql.yaml 
+kubectl create -f setup/oke_mysql.yaml 
 ```
 
-To allow the connection to the MySQL database from you console:
+To allow the connection to the MySQL database from your console you need
+to allow the user root to do so:
 
 ```
 kubectl exec -it deployment/mysql -- sh
@@ -43,20 +51,15 @@ CREATE USER 'root'@'%' IDENTIFIED BY 'Welcome1!';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 ```
 
-Then forward the MySQL port to your console 
+Then forward the MySQL port to your console and try to connect
 
 ```
 kubectl port-forward deployment/mysql 3306 &
+mysql -h127.0.0.1 -uroot -pWelcome1!
+exit
 ```
-
 
 ## MySQL - Creation of the table
-
-Open the OCI cloud console and clone this repository:
-
-```
-git clone https://github.com/mgueury/oke_mysql_java_101.git
-```
 
 The database used for the demo is running on 10.1.1.237 with the password root/Welcome1!
 
