@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysql-pass
-type: Opaque
+  name: db-secret
 data:
-  password: V2VsY29tZTEh 
+  password: V2VsY29tZTEh
+  username: cm9vdA==
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -66,7 +66,7 @@ spec:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-pass
+              name: db-secret
               key: password
         ports:
         - containerPort: 3306
