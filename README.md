@@ -46,7 +46,7 @@ to allow the user root to do so:
 
 ```
 kubectl exec -it deployment/mysql -- sh
-mysql --user=root --password=$MYSQL_ROOT_PASSWORD
+mysql -uroot -pWelcome1!
 CREATE USER 'root'@'%' IDENTIFIED BY 'Welcome1!';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 ```
