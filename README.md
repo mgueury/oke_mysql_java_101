@@ -77,7 +77,8 @@ DB_PASSWORD=Welcome1!
 
 You can find the script to create the DB table in the directory setup. 
 ```
-setup/mysql_create_db_table.sh
+cd setup
+./mysql_create_db_table.sh
 ```
 
 It will do this:
