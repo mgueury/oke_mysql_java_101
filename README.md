@@ -61,21 +61,28 @@ mysql -h127.0.0.1 -uroot -pWelcome1!
 exit
 ```
 
-## MySQL - Creation of the table
+### Environment variables
 
-The database used for the demo is running on 10.1.1.237 with the password root/Welcome1!
-
-Edit the file bin/env.sh to match your MySQL connection.
+Edit the file bin/env.sh to match your OCI connection details and MySQL connection.
 ```
-vi bin/env.sh
+cd bin
+cp env.sh.sample env.sh
+vi env.sh
 ...
+OCI_REGION=fra.ocir.io
+OCI_NAMESPACE=frabcdefghjij
+OCI_EMAIL=marc.gueury@oracle.com
+OCI_USERNAME=oracleidentitycloudservice/marc.gueury@oracle.com
+OCI_TOKEN="this_isAToken!"
 MYSQL_IP=10.1.1.237
 MYSQL_USER=root
 MYSQL_PASSWORD=Welcome1!
 ...
 ```
 
-You can find the script to create the DB table in the directory setup. 
+## MySQL - Creation of the table
+
+You can find the script to create the DB table in the directory setup. It uses the environment variables set above.
 ```
 cd setup
 ./mysql_create_db_table.sh
@@ -146,6 +153,11 @@ exit
 
 ## Demo 2 V1 - SpringBoot - hardcoded values
 
+First, let's finish the Kubernetes setup. Create the registry secret to allow Kubernetes to pull the image from the container registry
+```
+bin/create_registy_secret.sh
+```
+
 In this demo too, the DB details are hardcoded. To modify them:
 
 ```
@@ -157,7 +169,6 @@ vi src/main/java/com/mysql/web/basic/BasicController.java
 ```
 
 Then build the docker image, push it to the registry and run it,
-
 ```
 bin/build.sh
 bin/push.sh
