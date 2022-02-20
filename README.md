@@ -43,7 +43,7 @@ kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql -h10.1.
 # Press enter to see the prompt
 exit
 ```
-Note the command to connect to the database (*1*)
+Note the command to connect to the database (##1##)
 
 
 #### B. Install MySQL in Kubernetes 
@@ -76,7 +76,7 @@ kubectl port-forward deployment/mysql 3306 &
 mysql -h127.0.0.1 -uroot -pWelcome1!
 exit
 ```
-Note the command to connect to the database (*1*)
+Note the command to connect to the database (##1##)
 
 ### Environment variables
 
@@ -100,9 +100,8 @@ MYSQL_PASSWORD=Welcome1!
 ## MySQL - Creation of the table
 
 You can find the script to create the DB table in the directory setup. It uses the environment variables set above.
-Connect to the database using command (*1*)
 
-Run this:
+Connect to the database using command (##1##). Run this:
 ```
 show databases;
 create database db1;
