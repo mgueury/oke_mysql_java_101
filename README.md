@@ -36,15 +36,18 @@ Follow these steps
   - VCN: oke-vcn-quick-oke-cluster-xxxx
   - Subnet: oke-nodesubnet-quick-oke-cluster-xxxx-regional
   - Click create
-- Wait that the MySQL is created and note the IP address: ex: 10.1.1.237
-- Start the cloud console and try to connect to it via a kubernetes mysql-client
+- Wait that the MySQL is created and note the Private IP address: ex: 10.1.1.237
+
+To forward the port 3306 on your development machine/console, there is no feature yet for this in Kubernetes. Here is a work-around:
+
 ```
-kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql -h10.1.1.237 -uroot -pWelcome1!
-# Press enter to see the prompt
+kubectl run --restart=Never --image=alpine/socat mysql-jump-server -- -d -d tcp-listen:3306,fork,reuseaddr tcp-connect:10.1.1.237:3306
+kubectl wait --for=condition=Ready pod/mysql-jump-server
+kubectl port-forward pod/mysql-jump-server 3306:3306 &
+mysql -h127.0.0.1 -uroot -pWelcome1!
 exit
 ```
 Note the command to connect to the database (##1##)
-
 
 #### B. Install MySQL in Kubernetes 
 
@@ -242,7 +245,7 @@ You will see
 
 If you reach this point, CONGRATULATION !! You have a MySQL database, a Springboot application in Java running in Kubernetes using configMap and secrets.
 
-## Known issue
+## Known issues
 
 #### demo 2 v1 or v2 compilation fails
 
@@ -259,3 +262,15 @@ Caused by: java.lang.IllegalArgumentException: invalid target release: 11
 - WA: edit pom.xml 
   - OLD: <java.version>11</java.version>  
   - NEW: <java.version>8</java.version>
+
+## Tricks
+
+### Connect to MySQL Database System from kubectl
+
+Connect to it via a kubernetes mysql-client
+```
+kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql -h10.1.1.237 -uroot -pWelcome1!
+# Press enter to see the prompt
+exit
+```
+
