@@ -91,9 +91,6 @@ OCI_NAMESPACE=frabcdefghjij
 OCI_EMAIL=marc.gueury@oracle.com
 OCI_USERNAME=oracleidentitycloudservice/marc.gueury@oracle.com
 OCI_TOKEN="this_isAToken!"
-MYSQL_IP=10.1.1.237
-MYSQL_USER=root
-MYSQL_PASSWORD=Welcome1!
 ...
 ```
 
