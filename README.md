@@ -133,7 +133,7 @@ To build and run the docker container, do this.
 bin/build.sh
 docker run querydb
 
-If the port is forward from Kubernetes to localhost:3306
+If you use, kubectl port-forward
 docker run --net=host querydb
 ```
 
