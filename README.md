@@ -2,6 +2,8 @@
 
 ## Prerequisite 
 
+### Oracle Cloud Account and Kubernetes
+
 If you don't already have 
 - an Oracle Cloud account (OCI), 
 - or OKE (Kubernetes) installed on it. 
@@ -10,7 +12,6 @@ Please follow this step-by-step:
 - https://oracle.github.io/learning-library/oci-library/oci-hol/OKE/workshops/freetier/index.html?lab=oke
 
 ### Code
-
 Open the OCI cloud console and clone this repository:
 
 ```
@@ -23,6 +24,9 @@ If you have already a MySQL database running on OCI, and accessible from OKE, sk
 There are 2 main ways to create a MySQL database.
 
 #### A. MySQL Database System. 
+To make it easy follow this step by step but do not create a new network setup.
+Just install MDS in the VCN of OKE 
+
 Follow this step-by-step:
 - https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/workshop-attendee-2?p210_workshop_id=722&p210_type=1&session=8506648845614
 
