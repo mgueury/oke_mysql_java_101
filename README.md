@@ -23,10 +23,10 @@ If you have already a MySQL database running on OCI, and accessible from OKE, sk
 
 There are 2 main ways to create a MySQL database.
 
-#### A. MySQL Database System. 
-To make it easy follow this step by step but do not create a new network setup. And just install MDS in the same private network than the Kubernetes Nodes. 
+#### A. MySQL Database System (MDS). 
+To make it easy, we will just install MySQL in the same private network than the Kubernetes Nodes. 
 
-Follow these steps
+Follow these steps:
 - Choose Database / MySQL
 - On the MySQL Database System screen, click create 
 - Enter the following fields
@@ -38,15 +38,9 @@ Follow these steps
   - Click create
 - Wait that the MySQL is created and note the Private IP address: ex: 10.1.1.237
 
-To forward the port 3306 on your development machine/console, there is no feature yet for this in Kubernetes. Here is a work-around:
+Follow these steps to forward the port 3306 to your console via a Bastion:
+https://blogs.oracle.com/mysql/post/using-oci-cloud-shell-bastion-with-mysql-database-service
 
-```
-kubectl run --restart=Never --image=alpine/socat mysql-jump-server -- -d -d tcp-listen:3306,fork,reuseaddr tcp-connect:10.1.1.237:3306
-kubectl wait --for=condition=Ready pod/mysql-jump-server
-kubectl port-forward pod/mysql-jump-server 3306:3306 &
-mysql -h127.0.0.1 -uroot -pWelcome1!
-exit
-```
 Note the command to connect to the database (##1##)
 
 #### B. Install MySQL in Kubernetes 
@@ -271,6 +265,17 @@ Connect to it via a kubernetes mysql-client
 ```
 kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql -h10.1.1.237 -uroot -pWelcome1!
 # Press enter to see the prompt
+exit
+```
+
+### Forward the port of MySQL Database System to localhost
+
+Do not forget to change your IP address
+```
+kubectl run --restart=Never --image=alpine/socat mysql-jump-server -- -d -d tcp-listen:3306,fork,reuseaddr tcp-connect:10.1.1.237:3306
+kubectl wait --for=condition=Ready pod/mysql-jump-server
+kubectl port-forward pod/mysql-jump-server 3306:3306 &
+mysql -h127.0.0.1 -uroot -pWelcome1!
 exit
 ```
 
