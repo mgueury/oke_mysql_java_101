@@ -30,6 +30,11 @@ In OCI console,
 - If you decide to create a separate VCN, VCN peering will be needed. 
 - Doc here: https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-db-system1.html#GUID-AE89C67D-E1B1-4F11-B934-8B0564B4FC69
 
+or 
+
+Follow this step-by-step:
+https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/workshop-attendee-2?p210_workshop_id=722&p210_type=1&session=8506648845614
+
 #### B. Install MySQL in Kubernetes 
 
 The documentation is here:
