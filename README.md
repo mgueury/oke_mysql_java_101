@@ -24,11 +24,27 @@ If you have already a MySQL database running on OCI, and accessible from OKE, sk
 There are 2 main ways to create a MySQL database.
 
 #### A. MySQL Database System. 
-To make it easy follow this step by step but do not create a new network setup.
-Just install MDS in the VCN of OKE 
+To make it easy follow this step by step but do not create a new network setup. And just install MDS in the same private network than the Kubernetes Nodes. 
 
-Follow this step-by-step:
-- https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/workshop-attendee-2?p210_workshop_id=722&p210_type=1&session=8506648845614
+Follow these steps
+- Choose Database / MySQL
+- On the MySQL Database System screen, click create 
+- Enter the following fields
+  - name: mysql
+  - user: root
+  - password (2x): Welcome1!
+  - VCN: oke-vcn-quick-oke-cluster-xxxx
+  - Subnet: oke-nodesubnet-quick-oke-cluster-xxxx-regional
+  - Click create
+- Wait that the MySQL is created and note the IP address: ex: 10.1.1.237
+- Start the cloud console and try to connect to it via a kubernetes mysql-client
+```
+kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql -h10.1.1.237 -uroot -pWelcome1!
+# Press enter to see the prompt
+exit
+```
+Note the command to connect to the database (*1*)
+
 
 #### B. Install MySQL in Kubernetes 
 
@@ -60,6 +76,7 @@ kubectl port-forward deployment/mysql 3306 &
 mysql -h127.0.0.1 -uroot -pWelcome1!
 exit
 ```
+Note the command to connect to the database (*1*)
 
 ### Environment variables
 
@@ -83,12 +100,9 @@ MYSQL_PASSWORD=Welcome1!
 ## MySQL - Creation of the table
 
 You can find the script to create the DB table in the directory setup. It uses the environment variables set above.
-```
-cd setup
-./mysql_create_db_table.sh
-```
+Connect to the database using command (*1*)
 
-It will do this:
+Run this:
 ```
 show databases;
 create database db1;
