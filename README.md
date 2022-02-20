@@ -41,6 +41,12 @@ Follow these steps:
 Follow these steps to forward the port 3306 to your console via a Bastion:
 https://blogs.oracle.com/mysql/post/using-oci-cloud-shell-bastion-with-mysql-database-service
 
+Try to connect 
+```
+mysql -h127.0.0.1 -uroot -pWelcome1!
+exit
+```
+
 Note the command to connect to the database (##1##)
 
 #### B. Install MySQL in Kubernetes 
