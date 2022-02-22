@@ -2,7 +2,7 @@ import java.sql.*;
 public class QueryDB {
   public static void main(String[] args) {
     try {
-      Connection cnx = DriverManager.getConnection(args[0]);
+      Connection cnx = DriverManager.getConnection(args[0], args[1], args[2]);
       Statement stmt = cnx.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT id, name FROM t1");
       while (rs.next()) {
