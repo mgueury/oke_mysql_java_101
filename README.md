@@ -2,6 +2,8 @@
 
 ## Prerequisite 
 
+### Oracle Cloud Account and Kubernetes
+
 If you don't already have 
 - an Oracle Cloud account (OCI), 
 - or OKE (Kubernetes) installed on it. 
@@ -10,7 +12,6 @@ Please follow this step-by-step:
 - https://oracle.github.io/learning-library/oci-library/oci-hol/OKE/workshops/freetier/index.html?lab=oke
 
 ### Code
-
 Open the OCI cloud console and clone this repository:
 
 ```
@@ -22,13 +23,31 @@ If you have already a MySQL database running on OCI, and accessible from OKE, sk
 
 There are 2 main ways to create a MySQL database.
 
-#### A. MySQL Database System. 
-In OCI console, 
-- Go to Database / MySQL, 
-- Click create and follow the wizard. 
-- To make it easy, reuse the network setup of OKE, VCN and the NodeSubnet, such that no special networking is needed. 
-- If you decide to create a separate VCN, VCN peering will be needed. 
-- Doc here: https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-db-system1.html#GUID-AE89C67D-E1B1-4F11-B934-8B0564B4FC69
+#### A. MySQL Database System (MDS). 
+To make it easy, we will just install MySQL in the same private network than the Kubernetes Nodes. 
+
+Follow these steps:
+- Choose Database / MySQL
+- On the MySQL Database System screen, click create 
+- Enter the following fields
+  - name: mysql
+  - user: root
+  - password (2x): Welcome1!
+  - VCN: oke-vcn-quick-oke-cluster-xxxx
+  - Subnet: oke-nodesubnet-quick-oke-cluster-xxxx-regional
+  - Click create
+- Wait that the MySQL is created and note the Private IP address: ex: 10.1.1.237
+
+Follow these steps to forward the port 3306 to your console via a Bastion:
+https://blogs.oracle.com/mysql/post/using-oci-cloud-shell-bastion-with-mysql-database-service
+
+Try to connect 
+```
+mysql -h127.0.0.1 -uroot -pWelcome1!
+exit
+```
+
+Note the command to connect to the database (##1##)
 
 #### B. Install MySQL in Kubernetes 
 
@@ -60,6 +79,7 @@ kubectl port-forward deployment/mysql 3306 &
 mysql -h127.0.0.1 -uroot -pWelcome1!
 exit
 ```
+Note the command to connect to the database (##1##)
 
 ### Environment variables
 
@@ -74,21 +94,14 @@ OCI_NAMESPACE=frabcdefghjij
 OCI_EMAIL=marc.gueury@oracle.com
 OCI_USERNAME=oracleidentitycloudservice/marc.gueury@oracle.com
 OCI_TOKEN="this_isAToken!"
-MYSQL_IP=10.1.1.237
-MYSQL_USER=root
-MYSQL_PASSWORD=Welcome1!
 ...
 ```
 
 ## MySQL - Creation of the table
 
 You can find the script to create the DB table in the directory setup. It uses the environment variables set above.
-```
-cd setup
-./mysql_create_db_table.sh
-```
 
-It will do this:
+Connect to the database using command (##1##). Run this:
 ```
 show databases;
 create database db1;
@@ -132,6 +145,9 @@ To build and run the docker container, do this.
 ```
 bin/build.sh
 docker run querydb
+
+If you use, kubectl port-forward
+docker run --net=host querydb
 ```
 
 You will see:
@@ -229,7 +245,7 @@ You will see
 
 If you reach this point, CONGRATULATION !! You have a MySQL database, a Springboot application in Java running in Kubernetes using configMap and secrets.
 
-## Known issue
+## Known issues
 
 #### demo 2 v1 or v2 compilation fails
 
@@ -246,3 +262,26 @@ Caused by: java.lang.IllegalArgumentException: invalid target release: 11
 - WA: edit pom.xml 
   - OLD: <java.version>11</java.version>  
   - NEW: <java.version>8</java.version>
+
+## Tricks
+
+### Connect to MySQL Database System from kubectl
+
+Connect to it via a kubernetes mysql-client
+```
+kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql -h10.1.1.237 -uroot -pWelcome1!
+# Press enter to see the prompt
+exit
+```
+
+### Forward the port of MySQL Database System to localhost
+
+Do not forget to change your IP address
+```
+kubectl run --restart=Never --image=alpine/socat mysql-jump-server -- -d -d tcp-listen:3306,fork,reuseaddr tcp-connect:10.1.1.237:3306
+kubectl wait --for=condition=Ready pod/mysql-jump-server
+kubectl port-forward pod/mysql-jump-server 3306:3306 &
+mysql -h127.0.0.1 -uroot -pWelcome1!
+exit
+```
+
