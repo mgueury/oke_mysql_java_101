@@ -24,7 +24,7 @@ public class BasicController {
       Statement stmt = conn.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM t1");
       while (rs.next()) {
-        str.append(rs.getInt(1) + ":" + rs.getString(2) + " ");
+        str.append(rs.getInt(1) + ":" + rs.getString(2) + "\n");
       }
     } catch(SQLException e) {
       str = new StringBuilder(e.getMessage());
