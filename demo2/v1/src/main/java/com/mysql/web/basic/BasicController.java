@@ -5,7 +5,7 @@ import java.sql.*;
 @RestController
 
 public class BasicController { 
-  private String DB_URL = "jdbc:mysql://10.1.1.237/db1?user=root&password=Welcome1!";                              
+  private String DB_URL = "jdbc:mysql://10.1.1.237/db1?user=root&password=Welcome___1";                              
   @GetMapping("/query")
   public String query() {
     StringBuilder str = new StringBuilder("");
