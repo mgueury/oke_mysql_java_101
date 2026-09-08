@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM eclipse-temurin:25
 COPY . /app
 COPY lib /app/lib
 WORKDIR /app

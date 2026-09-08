@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM eclipse-temurin:25
 RUN useradd -M -r -U swd
 USER swd
 COPY --chown=swd:swd target/basic-0.0.1-SNAPSHOT.jar /app/app.jar

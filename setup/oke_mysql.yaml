@@ -60,7 +60,7 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: mysql/mysql-server:latest
+      - image: docker.io/mysql/mysql-server:latest
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
